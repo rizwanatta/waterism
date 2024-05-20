@@ -1,6 +1,5 @@
-import CameraPractice from "./src/screens/CameraPractice";
-import ShoppingList from "./src/screens/shoppingList";
+import MainNavigator from "./src/navigations/MainNavigator";
 
 export default function App() {
-  return <CameraPractice />;
+  return <MainNavigator />;
 }

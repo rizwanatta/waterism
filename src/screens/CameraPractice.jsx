@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, View, StyleSheet, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export default function CameraPractice() {
+export default function CameraPractice({ navigation }) {
   const [imagePath, setImagePath] = useState("");
 
   const startCamera = async () => {
@@ -15,10 +15,15 @@ export default function CameraPractice() {
     }
   };
 
+  const goToWebView = () => {
+    navigation.navigate("WebViewPractice");
+  };
+
   return (
     <View style={styles.container}>
       <Image source={{ uri: imagePath }} style={styles.image} />
       <Button title="Start Camera" onPress={startCamera} />
+      <Button title="go to webview" onPress={goToWebView} />
     </View>
   );
 }
