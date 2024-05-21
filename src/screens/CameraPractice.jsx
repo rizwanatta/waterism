@@ -15,15 +15,15 @@ export default function CameraPractice({ navigation }) {
     }
   };
 
-  const goToWebView = () => {
+  function attemptToOpenWebview() {
     navigation.navigate("WebViewPractice");
-  };
+  }
 
   return (
     <View style={styles.container}>
       <Image source={{ uri: imagePath }} style={styles.image} />
       <Button title="Start Camera" onPress={startCamera} />
-      <Button title="go to webview" onPress={goToWebView} />
+      <Button title="open" onPress={attemptToOpenWebview} />
     </View>
   );
 }
