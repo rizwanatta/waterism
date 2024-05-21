@@ -1,8 +1,8 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function ShoppingList() {
+export default function ShoppingList({ navigation }) {
   const nameCollection = [
     "aslam",
     "akram",
@@ -18,13 +18,19 @@ export default function ShoppingList() {
     "Ahtisham",
   ];
 
+  function onItemPressed() {
+    navigation.navigate("CameraPractice");
+  }
+
   const __renderItem = ({ item, index }) => (
-    <View style={styles.itemCon}>
-      <Ionicons name="person" size={33} />
-      <Text>
-        {index + 1}: {item}
-      </Text>
-    </View>
+    <Pressable onPress={onItemPressed}>
+      <View style={styles.itemCon}>
+        <Ionicons name="person" size={33} />
+        <Text>
+          {index + 1}: {item}
+        </Text>
+      </View>
+    </Pressable>
   );
 
   return (
