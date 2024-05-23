@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import WebViewPractice from "../screens/WebViewPractice";
 import CameraPractice from "../screens/CameraPractice";
 import ShoppingList from "../screens/shoppingList";
+import Home from "../screens/home";
 import { View } from "react-native";
 
 const MainStack = createNativeStackNavigator();
@@ -12,7 +13,9 @@ const MainStack = createNativeStackNavigator();
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName="ShoppingList">
+      <MainStack.Navigator initialRouteName="Home">
+        <MainStack.Screen name={"Home"} component={Home} />
+
         <MainStack.Screen
           name={"WebViewPractice"}
           component={WebViewPractice}
