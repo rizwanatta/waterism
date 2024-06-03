@@ -12,7 +12,7 @@ import Glass from "../ components/glass";
 import DatePickerModal from "../ components/DatePickerModal";
 
 // our config
-import { firestoreConfig } from "../database/firebaseConfig";
+import { db } from "../database/firebaseConfig";
 // send krna ka code form SDK
 import { collection, addDoc } from "firebase/firestore";
 
@@ -38,7 +38,7 @@ export default function Home() {
   }
 
   function onSendPress() {
-    addDoc(collection(firestoreConfig, "cartoons"), {
+    addDoc(collection(db, "cartoons"), {
       name: input,
     });
   }

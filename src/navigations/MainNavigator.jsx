@@ -7,13 +7,16 @@ import CameraPractice from "../screens/CameraPractice";
 import ShoppingList from "../screens/shoppingList";
 import Home from "../screens/home";
 import { View } from "react-native";
+import Register from "../screens/register";
 
 const MainStack = createNativeStackNavigator();
 
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName="Home">
+      <MainStack.Navigator initialRouteName="Register">
+        <MainStack.Screen name={"Register"} component={Register} />
+
         <MainStack.Screen name={"Home"} component={Home} />
 
         <MainStack.Screen
