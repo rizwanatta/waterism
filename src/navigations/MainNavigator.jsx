@@ -8,13 +8,15 @@ import ShoppingList from "../screens/shoppingList";
 import Home from "../screens/home";
 import { View } from "react-native";
 import Register from "../screens/register";
+import Login from "../screens/login";
 
 const MainStack = createNativeStackNavigator();
 
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName="Register">
+      <MainStack.Navigator initialRouteName="Login">
+        <MainStack.Screen name={"Login"} component={Login} />
         <MainStack.Screen name={"Register"} component={Register} />
 
         <MainStack.Screen name={"Home"} component={Home} />
