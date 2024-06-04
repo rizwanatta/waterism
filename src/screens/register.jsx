@@ -1,6 +1,13 @@
 // App.js
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebaseConfig";
@@ -10,6 +17,7 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = () => {
     if (email === "") {
@@ -34,12 +42,15 @@ const Register = () => {
       return; // do not run the code after it
     }
 
+    setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
         alert("yayee welcome");
+        setLoading(false);
       })
       .catch((error) => {
         alert(error.message);
+        setLoading(false);
       });
   };
 
@@ -81,6 +92,17 @@ const Register = () => {
       />
 
       <Button title="Register" onPress={handleRegister} />
+
+      {loading ? (
+        <View
+          style={{ backgroundColor: "rgba(200,0,0,0.5)" }}
+          className="w-screen h-screen justify-center items-center absolute"
+        >
+          <ActivityIndicator size={"large"} />
+        </View>
+      ) : (
+        <View />
+      )}
     </View>
   );
 };
