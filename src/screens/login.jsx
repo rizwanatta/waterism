@@ -32,11 +32,14 @@ const Login = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         alert("loggedin");
-        setLoading(false);
       })
       .catch((error) => {
         alert(error.message);
+      })
+      .finally(() => {
         setLoading(false);
+        setEmail("");
+        setPassword("");
       });
   };
 
