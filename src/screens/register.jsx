@@ -12,6 +12,7 @@ import {
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebaseConfig";
 import Loader from "../ components/loader";
+import MediaPicker from "../ components/mediaPicker";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -60,6 +61,8 @@ const Register = () => {
       <Text className="text-2xl font-bold mb-4 text-center">
         Make A New Account
       </Text>
+
+      <MediaPicker />
 
       <TextInput
         className="border p-2 mb-4 rounded"
