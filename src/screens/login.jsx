@@ -11,6 +11,7 @@ import {
 
 import { auth } from "../database/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Loader from "../ components/loader";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -78,16 +79,7 @@ const Login = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
 
-      {loading ? (
-        <View
-          style={{ backgroundColor: "rgba(200,0,0,0.5)" }}
-          className="w-screen h-screen justify-center items-center absolute"
-        >
-          <ActivityIndicator size={"large"} />
-        </View>
-      ) : (
-        <View />
-      )}
+      {loading ? <Loader /> : <View />}
     </View>
   );
 };

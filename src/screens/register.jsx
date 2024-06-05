@@ -11,6 +11,7 @@ import {
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebaseConfig";
+import Loader from "../ components/loader";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -93,16 +94,7 @@ const Register = () => {
 
       <Button title="Register" onPress={handleRegister} />
 
-      {loading ? (
-        <View
-          style={{ backgroundColor: "rgba(200,0,0,0.5)" }}
-          className="w-screen h-screen justify-center items-center absolute"
-        >
-          <ActivityIndicator size={"large"} />
-        </View>
-      ) : (
-        <View />
-      )}
+      {loading ? <Loader /> : <View />}
     </View>
   );
 };
