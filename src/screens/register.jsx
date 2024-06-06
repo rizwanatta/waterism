@@ -11,8 +11,13 @@ import {
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebaseConfig";
+
 import Loader from "../ components/loader";
 import MediaPicker from "../ components/mediaPicker";
+import { imgToBlob } from "../lib/blobMaker";
+
+import { storage } from "../database/firebaseConfig";
+import { ref, uploadBytes } from "firebase/storage";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -20,6 +25,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [img, setImg] = useState("");
 
   const handleRegister = () => {
     if (email === "") {
@@ -56,13 +63,29 @@ const Register = () => {
       });
   };
 
+  function onPicTaken(imgPath) {
+    setImg(imgPath);
+  }
+
+  function handleImgUpload() {
+    // img ka blob bnanan h
+    imgToBlob(img).then((blobResponse) => {
+      const storageRef = ref(storage, "test.png");
+      uploadBytes(storageRef, blobResponse);
+    });
+
+    //storage ref  === storagePath, storageFOlder/imgName
+    // uploadBytes(ref,blob)
+  }
+
   return (
     <View className="flex-1 justify-center p-4 bg-red-200">
       <Text className="text-2xl font-bold mb-4 text-center">
         Make A New Account
       </Text>
 
-      <MediaPicker />
+      <MediaPicker onImagePicked={onPicTaken} />
+      <Button title="upload" onPress={handleImgUpload} />
 
       <TextInput
         className="border p-2 mb-4 rounded"

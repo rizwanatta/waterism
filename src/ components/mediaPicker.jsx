@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import Modal from "react-native-modal";
 
-export default function MediaPicker() {
+export default function MediaPicker({ onImagePicked }) {
   const [isOpen, setIsOpen] = useState(false);
   const [imagePath, setImagePath] = useState("");
 
@@ -28,6 +28,7 @@ export default function MediaPicker() {
     if (result.canceled === false) {
       let url = result.assets[0].uri;
       setImagePath(url);
+      onImagePicked(url);
       handleModalClose();
     }
   };
@@ -37,6 +38,7 @@ export default function MediaPicker() {
     if (result.canceled === false) {
       let url = result.assets[0].uri;
       setImagePath(url);
+      onImagePicked(url);
       handleModalClose();
     }
   };
