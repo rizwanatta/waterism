@@ -9,13 +9,18 @@ import Home from "../screens/home";
 import { View } from "react-native";
 import Register from "../screens/register";
 import Login from "../screens/login";
+import StoragePractice from "../screens/storagePractice";
 
 const MainStack = createNativeStackNavigator();
 
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName="Login">
+      <MainStack.Navigator initialRouteName="StoragePractice">
+        <MainStack.Screen
+          name={"StoragePractice"}
+          component={StoragePractice}
+        />
         <MainStack.Screen name={"Login"} component={Login} />
         <MainStack.Screen name={"Register"} component={Register} />
 

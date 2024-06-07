@@ -19,7 +19,7 @@ import { imgToBlob } from "../lib/blobMaker";
 import { storage } from "../database/firebaseConfig";
 import { ref, uploadBytes } from "firebase/storage";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -54,8 +54,11 @@ const Register = () => {
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        alert("yayee welcome");
-        setLoading(false);
+        //save user details in app memeory
+
+        // upload user image
+        handleImgUpload();
+        // stop loading and leave to login page
       })
       .catch((error) => {
         alert(error.message);
@@ -70,8 +73,14 @@ const Register = () => {
   function handleImgUpload() {
     // img ka blob bnanan h
     imgToBlob(img).then((blobResponse) => {
-      const storageRef = ref(storage, "test.png");
-      uploadBytes(storageRef, blobResponse);
+      const storageRef = ref(
+        storage,
+        "profilePics/profile_" + Math.random() + ".png"
+      );
+      uploadBytes(storageRef, blobResponse).then((response) => {
+        setLoading(false);
+        navigation.navigate("Login");
+      });
     });
 
     //storage ref  === storagePath, storageFOlder/imgName
@@ -85,7 +94,6 @@ const Register = () => {
       </Text>
 
       <MediaPicker onImagePicked={onPicTaken} />
-      <Button title="upload" onPress={handleImgUpload} />
 
       <TextInput
         className="border p-2 mb-4 rounded"
