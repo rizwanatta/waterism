@@ -16,7 +16,7 @@ const MainStack = createNativeStackNavigator();
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName="StoragePractice">
+      <MainStack.Navigator initialRouteName="Register">
         <MainStack.Screen
           name={"StoragePractice"}
           component={StoragePractice}

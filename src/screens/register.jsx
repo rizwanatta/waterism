@@ -18,6 +18,7 @@ import { imgToBlob } from "../lib/blobMaker";
 
 import { storage } from "../database/firebaseConfig";
 import { ref, uploadBytes } from "firebase/storage";
+import { attemptToRegisterNewUser } from "../services/register-service";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -51,40 +52,18 @@ const Register = ({ navigation }) => {
       return; // do not run the code after it
     }
 
-    setLoading(true);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        //save user details in app memeory
+    if (img === "") {
+      alert("Please upload an image");
+      return; // do not run the code after it
+    }
 
-        // upload user image
-        handleImgUpload();
-        // stop loading and leave to login page
-      })
-      .catch((error) => {
-        alert(error.message);
-        setLoading(false);
-      });
+    setLoading(true);
+    attemptToRegisterNewUser(email, password, img);
+    setLoading(false);
   };
 
   function onPicTaken(imgPath) {
     setImg(imgPath);
-  }
-
-  function handleImgUpload() {
-    // img ka blob bnanan h
-    imgToBlob(img).then((blobResponse) => {
-      const storageRef = ref(
-        storage,
-        "profilePics/profile_" + Math.random() + ".png"
-      );
-      uploadBytes(storageRef, blobResponse).then((response) => {
-        setLoading(false);
-        navigation.navigate("Login");
-      });
-    });
-
-    //storage ref  === storagePath, storageFOlder/imgName
-    // uploadBytes(ref,blob)
   }
 
   return (
