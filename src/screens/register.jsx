@@ -7,18 +7,15 @@ import {
   Button,
   Alert,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
-
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../database/firebaseConfig";
 
 import Loader from "../ components/loader";
 import MediaPicker from "../ components/mediaPicker";
-import { imgToBlob } from "../lib/blobMaker";
-
-import { storage } from "../database/firebaseConfig";
-import { ref, uploadBytes } from "firebase/storage";
 import { attemptToRegisterNewUser } from "../services/register-service";
+import DatePickerModal from "../ components/DatePickerModal";
+import { getFormattedDate } from "../utils/dateTimeHelper";
+import Gender from "../ components/gender";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -28,6 +25,8 @@ const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const [img, setImg] = useState("");
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [dob, setDob] = useState("");
 
   const handleRegister = () => {
     if (email === "") {
@@ -64,6 +63,12 @@ const Register = ({ navigation }) => {
 
   function onPicTaken(imgPath) {
     setImg(imgPath);
+  }
+
+  function onDobPressed() {
+    if (isCalendarOpen === false) {
+      setIsCalendarOpen(true);
+    }
   }
 
   return (
@@ -105,9 +110,27 @@ const Register = ({ navigation }) => {
         secureTextEntry
       />
 
+      <Pressable onPress={onDobPressed}>
+        <View className="p-2 border rounded mb-2  ">
+          <Text>DOB: {getFormattedDate(dob)} </Text>
+        </View>
+      </Pressable>
+
+      <View>
+        <Gender />
+      </View>
+
       <Button title="Register" onPress={handleRegister} />
 
       {loading ? <Loader /> : <View />}
+
+      <DatePickerModal
+        isOpen={isCalendarOpen}
+        onClose={(date) => {
+          setIsCalendarOpen(false);
+          setDob(date);
+        }}
+      />
     </View>
   );
 };
