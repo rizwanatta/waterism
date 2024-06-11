@@ -21,6 +21,7 @@ const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [gender, setGender] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -56,8 +57,25 @@ const Register = ({ navigation }) => {
       return; // do not run the code after it
     }
 
+    if (dob === "") {
+      alert("Please select birthday");
+      return; // do not run the code after it
+    }
+    if (gender === "") {
+      alert("Please select gender");
+      return; // do not run the code after it
+    }
+
     setLoading(true);
-    attemptToRegisterNewUser(email, password, img);
+    attemptToRegisterNewUser(
+      email,
+      password,
+      img,
+      userName,
+      gender,
+      dob,
+      navigation
+    );
     setLoading(false);
   };
 
@@ -72,7 +90,7 @@ const Register = ({ navigation }) => {
   }
 
   return (
-    <View className="flex-1 justify-center p-4 bg-red-200">
+    <View className="flex-1 justify-center p-4 ">
       <Text className="text-2xl font-bold mb-4 text-center">
         Make A New Account
       </Text>
@@ -117,7 +135,7 @@ const Register = ({ navigation }) => {
       </Pressable>
 
       <View>
-        <Gender />
+        <Gender onGenderSelected={setGender} />
       </View>
 
       <Button title="Register" onPress={handleRegister} />

@@ -2,15 +2,17 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function Gender() {
-  const [gender, setGender] = useState("male");
+export default function Gender({ onGenderSelected }) {
+  const [gender, setGender] = useState();
 
   function onMalePressed() {
     setGender("male");
+    onGenderSelected("male");
   }
 
   function onFeMalePressed() {
     setGender("female");
+    onGenderSelected("female");
   }
 
   return (
