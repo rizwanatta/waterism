@@ -10,13 +10,18 @@ import { View } from "react-native";
 import Register from "../screens/register";
 import Login from "../screens/login";
 import StoragePractice from "../screens/storagePractice";
+import PokemonListing from "../screens/pokemonListing";
+import PokemonDetails from "../screens/pokemonDetails";
 
 const MainStack = createNativeStackNavigator();
 
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName="Register">
+      <MainStack.Navigator initialRouteName="PokemonListing">
+        <MainStack.Screen name={"PokemonListing"} component={PokemonListing} />
+        <MainStack.Screen name={"PokemonDetails"} component={PokemonDetails} />
+
         <MainStack.Screen
           name={"StoragePractice"}
           component={StoragePractice}
